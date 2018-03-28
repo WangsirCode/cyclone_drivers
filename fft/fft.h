@@ -1,11 +1,11 @@
-#ifndef FFT_F
-#define FFT_F FFT_H
+#ifndef FFT_H
+#define FFT_H FFT_H_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
-//mac下M_PI在math.h中有宏定义，所以这里我们选择行的宏定义
+#include <stdio.h>  
+#include <stdlib.h>  
+#include <time.h>  
+#include <math.h>  
+
 #ifndef M_PI  
 #define M_PI 3.14159265358979323846  
 #endif  
