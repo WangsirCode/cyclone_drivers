@@ -1,4 +1,4 @@
-#include "ad.h"
+﻿#include "ad.h"
 /*
  * 函数说明：
  * 通过给定的输入信号频率和FFT点数计算并设置定时器的预置数
@@ -41,4 +41,37 @@ float ReadAdRes(int BASE)
 		Res = (databits)/4095.0*10;
 	}
 	return Res;
+}
+float computeAd(unsigned int adValue)
+{
+	float Res = 0;                              //�������AD���
+	unsigned int databits = 0;                           //AD�����ֵλ
+
+	databits = adValue & 0x7FF;
+	if(0x800==(adValue & 0x800))
+	{
+		Res = (databits - 0x800)/4095.0*10;
+	}
+	else
+	{
+		Res = (databits)/4095.0*10;
+	}
+	return Res;
+}
+
+void parseAdData(float *input, unsigned char * source)
+{
+	int i;
+	int j = 0;
+	for (i = 0; i < 32; i ++)
+	{
+		unsigned char low = source[j];
+		unsigned char high = source[j+1];
+		unsigned int result = high;
+		result = result << 8;
+		result = result | low;
+
+		input[i] = computeAd(result);
+		j += 2;
+	}
 }
