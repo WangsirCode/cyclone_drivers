@@ -66,7 +66,7 @@ void uart_send_string(unsigned int len, unsigned char *str)
 int uart_init(void)
 {
 	//将波特率设置为115200
-	set_baudrate(57600);
+	set_baudrate(115200);
 	//将控制寄存器IRRDY置1，在接收准备好后使能中断
 	UART->CONTROL.BITS.IRRDY=1;
 	//将状态寄存器全部清零
@@ -89,7 +89,7 @@ static void uart_ISR(void *context)
 	//等待状态寄存器RRDY置1，当RRDY为1时表示接收的数据已经传输到RXDATA中
 	while(!(UART->STATUS.BITS.RRDY));
 	uart.receive_buffer[uart.receive_count++] = UART->RXDATA.BITS.RECEIVE_DATA;
-	if(uart.receive_buffer[uart.receive_count-1]=='\n'){
+	if(uart.receive_count == 64){
 		uart.receive_buffer[uart.receive_count]='\0';
 		uart.receive_count=0;
 		uart.receive_flag=1;
