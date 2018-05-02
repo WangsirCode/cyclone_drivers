@@ -8,15 +8,13 @@
 //		PIN_144			---> MISO
 //***************************
 int flash = 0;
-#define SCLK_L   flash = flash & 0b110; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_BASE, flash ) 
-#define DO_L     flash = flash & 0b011; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_BASE, flash)  
-#define DIO_L    flash = flash & 0b101; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_BASE, flash )  
+#define SCLK_L   flash = flash & 0b110; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_OUT_BASE, flash ) 
+#define DIO_L    flash = flash & 0b101; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_OUT_BASE, flash )  
 
-#define SCLK_H   flash = flash | 0b001; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_BASE, flash )   
-#define DO_H     flash = flash | 0b100; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_BASE, flash)
-#define DIO_H    flash = flash | 0b010; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_BASE, flash )
+#define SCLK_H   flash = flash | 0b001; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_OUT_BASE, flash )   
+#define DIO_H    flash = flash | 0b010; IOWR_ALTERA_AVALON_PIO_DATA(FLASH_OUT_BASE, flash )
 
-#define DO_Read IORD_ALTERA_AVALON_PIO_DATA(FLASH_BASE+2)&&0x1//读DO的宏
+#define DO_Read IORD_ALTERA_AVALON_PIO_DATA(FLASH_IN_BASE)//读DO的宏
 
 
 void SPI_Write(unsigned char data) //用SPI发送8位数据
